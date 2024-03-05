@@ -1,5 +1,11 @@
-CREATE TABLE IF NOT EXISTS model (
+CREATE TABLE IF NOT EXISTS decimal_intervals (
     id SERIAL PRIMARY KEY,
-    f Int,
-    s Int
+    start Int,
+    ended Int
+);
+
+CREATE TABLE IF NOT EXISTS string_intervals (
+    id SERIAL PRIMARY KEY,
+    start VARCHAR(1),
+    ended VARCHAR(1)
 );
