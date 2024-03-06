@@ -3,11 +3,8 @@ server:
 
 spring:
   datasource:
-    # По умолчанию postgresql имеет 5432 порт. Но так как подразумевается запуск через docker-compose, указан порт
-    # из docker-compose.yaml для корректной проброски. Если у вас локально установлен postgresql и вы собираетесь
-    # использовать его, то требуется поменить его на нужный
-    url: jdbc:postgresql://localhost:5432/intervals
-    username: user
+    url: jdbc:postgresql://localhost:5430/intervals
+    username: intervals
     password: 229csx
   thymeleaf:
     enabled=false:
@@ -18,3 +15,6 @@ spring:
     validate:
       -on
       -migrate=false
+  jpa:
+    hibernate:
+      dialect-auto: update

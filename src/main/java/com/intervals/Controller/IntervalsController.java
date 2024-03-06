@@ -1,10 +1,9 @@
 package com.intervals.Controller;
 
-import com.intervals.Service.IntervalsService;
+import com.intervals.Service.impl.IntervalsService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
+import java.util.*;
 
 @RestController
 @AllArgsConstructor
@@ -12,11 +11,13 @@ import java.util.ArrayList;
 public class IntervalsController {
 
     private final IntervalsService usersService;
+    @GetMapping("/min")
+    public List<?> get(@RequestParam String kind){
+        return usersService.get(kind);
+    }
+
     @PostMapping("/merge")
-    public void get(String kind, @RequestParam ArrayList<Object> array){
-        if (kind.equals("kind")){
-            usersService.get();
-            System.out.println(array);
-        }
+    public <T> void mergeIntervals(@RequestParam String kind, @RequestBody ArrayList<ArrayList<T>> array){
+        usersService.mergeIntervals(array, kind);
     }
 }
