@@ -2,8 +2,6 @@ package com.intervals.Model.IntervalRelease;
 
 import com.intervals.Model.Interval;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
@@ -13,9 +11,10 @@ import java.util.HashMap;
 @Entity
 @Table(name = "stringIntervals")
 @SuperBuilder
-@Data
 @NoArgsConstructor
-public class StringInterval extends Interval<String> {
+public class LetterInterval extends Interval<String> {
+    //Словарь для обозначения элементов и какая у них значимость, регистр не имеет значения
+    //Словарь содержит только буквы(без каких-либо знаков), как и сказано в задании
     private static HashMap<String, Integer> mapLetters = new HashMap<>(){{
         char t = 'a';
         int i = 0;

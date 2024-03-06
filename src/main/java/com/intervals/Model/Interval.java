@@ -1,12 +1,9 @@
 package com.intervals.Model;
 
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.Type;
-import org.springframework.context.annotation.Bean;
 
 /*
 Абстрактный класс для интервалов
@@ -25,7 +22,10 @@ public abstract class Interval<T> implements Comparable<Interval<T>> {
     T start;
     @Column(name = "ended")
     T ended;
+
     @Override
     public abstract int compareTo(Interval<T> object);
     public abstract int canMerge(Interval<T> object);
+
+
 }
