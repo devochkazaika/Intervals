@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.intervals.ServiceTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2024-03-06T14:41:16" hostname="DESKTOP-0UV5HBS" time="0.237">
+  <properties/>
+  <testcase name="testFromTask()" classname="com.intervals.ServiceTest" time="0.126"/>
+  <testcase name="test4()" classname="com.intervals.ServiceTest" time="0.015"/>
+  <testcase name="test5()" classname="com.intervals.ServiceTest" time="0.018"/>
+  <testcase name="testFromTask1()" classname="com.intervals.ServiceTest" time="0.017"/>
+  <testcase name="testFromTask2()" classname="com.intervals.ServiceTest" time="0.013"/>
+  <testcase name="myTest1()" classname="com.intervals.ServiceTest" time="0.012"/>
+  <system-out><![CDATA[21:41:06.046 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.intervals.ServiceTest]: ServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+21:41:06.231 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.intervals.Application for test class com.intervals.ServiceTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.3)
+
+2024-03-06T21:41:07.044+07:00  INFO 7660 --- [    Test worker] com.intervals.ServiceTest                : Starting ServiceTest using Java 20.0.2 with PID 7660 (started by Основной in C:\Users\Основной\Desktop\Intervals)
+2024-03-06T21:41:07.046+07:00  INFO 7660 --- [    Test worker] com.intervals.ServiceTest                : No active profile set, falling back to 1 default profile: "default"
+2024-03-06T21:41:08.435+07:00  INFO 7660 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-03-06T21:41:08.550+07:00  INFO 7660 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 99 ms. Found 2 JPA repository interfaces.
+2024-03-06T21:41:09.345+07:00  INFO 7660 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-03-06T21:41:09.599+07:00  INFO 7660 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7558c24b
+2024-03-06T21:41:09.603+07:00  INFO 7660 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-03-06T21:41:09.773+07:00  INFO 7660 --- [    Test worker] o.f.c.internal.license.VersionPrinter    : Flyway Community Edition 9.22.3 by Redgate
+2024-03-06T21:41:09.773+07:00  INFO 7660 --- [    Test worker] o.f.c.internal.license.VersionPrinter    : See release notes here: https://rd.gt/416ObMi
+2024-03-06T21:41:09.773+07:00  INFO 7660 --- [    Test worker] o.f.c.internal.license.VersionPrinter    : 
+2024-03-06T21:41:09.806+07:00  INFO 7660 --- [    Test worker] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:5430/intervals (PostgreSQL 12.18)
+2024-03-06T21:41:10.040+07:00  INFO 7660 --- [    Test worker] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.059s)
+2024-03-06T21:41:10.095+07:00  INFO 7660 --- [    Test worker] o.f.core.internal.command.DbMigrate      : Current version of schema "public": 1
+2024-03-06T21:41:10.106+07:00  INFO 7660 --- [    Test worker] o.f.core.internal.command.DbMigrate      : Schema "public" is up to date. No migration necessary.
+2024-03-06T21:41:10.379+07:00  INFO 7660 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-03-06T21:41:10.520+07:00  INFO 7660 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-03-06T21:41:10.596+07:00  INFO 7660 --- [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-03-06T21:41:11.103+07:00  INFO 7660 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-03-06T21:41:12.811+07:00  INFO 7660 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-03-06T21:41:12.818+07:00  INFO 7660 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-03-06T21:41:13.266+07:00  INFO 7660 --- [    Test worker] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-03-06T21:41:14.300+07:00  WARN 7660 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-03-06T21:41:15.007+07:00  INFO 7660 --- [    Test worker] com.intervals.ServiceTest                : Started ServiceTest in 8.494 seconds (process running for 10.748)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

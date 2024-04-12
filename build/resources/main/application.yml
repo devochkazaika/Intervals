@@ -1,0 +1,21 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    #Ставим порт 5432, если хотим запускать на локалке
+    url: jdbc:postgresql://localhost:5432/intervals
+    username: intervals
+    password: 229csx
+  thymeleaf:
+    enabled=false:
+  flyway:
+    enabled: true
+    locations:
+      - db.migration
+    validate:
+      -on
+      -migrate=false
+  jpa:
+    hibernate:
+      dialect-auto: update
