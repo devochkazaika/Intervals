@@ -3,9 +3,10 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5430/intervals
-    username: intervals
+    url: jdbc:h2:mem:intervals
+    username: admin
     password: 229csx
+    driverClassName: org.h2.Driver
   thymeleaf:
     enabled=false:
   flyway:
@@ -16,5 +17,4 @@ spring:
       -on
       -migrate=false
   jpa:
-    hibernate:
-      dialect-auto: update
+    database-platform: org.hibernate.dialect.H2Dialect
