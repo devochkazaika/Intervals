@@ -1,0 +1,4 @@
+# Игнорировать каталоги build, .idea, и .gradle
+build/
+.idea/
+.gradle/
