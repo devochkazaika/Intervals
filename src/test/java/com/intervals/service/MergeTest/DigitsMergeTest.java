@@ -29,6 +29,9 @@ import static org.mockito.Mockito.when;
 class DigitsMergeTest {
     @InjectMocks
     private IntervalsService service;
+
+    @Mock
+    private IRepository repositoryService;
     @Mock
     private DigitRepository digitRepository;
     @Mock
@@ -37,31 +40,21 @@ class DigitsMergeTest {
     @Rollback(value = true)
     void saveTest() throws Exception {
         ArrayList<DigitsInterval> testDB = new ArrayList<>(
-                Arrays.asList(DigitsInterval.builder()
-                                .start(10)
-                                .ended(15)
-                                .build(),
-                        DigitsInterval.builder()
-                                .start(14)
-                                .ended(17)
-                                .build(),
-                        DigitsInterval.builder()
-                                .start(124)
-                                .ended(1315)
-                                .build()));
+                Arrays.asList(  new DigitsInterval(10, 15),
+                                new DigitsInterval(14, 17),
+                                new DigitsInterval(124, 1235)));
         testDB.forEach(x -> {
-            service.save(x);
+            repositoryService.save(x);
         });
     }
     private void testDigits(int[][] array, int[][] mergedArray){
-        List<DigitsInterval> expected = Arrays.stream(mergedArray).map(x -> {return DigitsInterval.builder()
-                .start(x[0])
-                .ended(x[1])
-                .build();}).collect(Collectors.toList());
-        List<ArrayList<Integer>> listOfLists = Arrays.stream(array).map(x -> {
-                    return new ArrayList<>(Arrays.asList(x[0], x[1]));
-                }
-        ).collect(Collectors.toList());
+        List<DigitsInterval> expected = Arrays.stream(mergedArray).map(
+                x -> new DigitsInterval(x[0], x[1])
+                ).collect(Collectors.toList());
+        List<ArrayList<Integer>> listOfLists = Arrays.stream(array).map(
+                x -> new ArrayList<>(Arrays.asList(x[0], x[1]))
+                ).collect(Collectors.toList());
+
         var Actual = service.mergeIntervals(listOfLists, "digits");
         System.out.println(Actual);
         testArray(expected, Actual);
@@ -120,15 +113,13 @@ class DigitsMergeTest {
         });
     }
     private void testLetters(String[][] array, String[][] mergedArray){
-        List<LetterInterval> expected = Arrays.stream(mergedArray).map(x -> {return LetterInterval.builder()
-                .start(x[0])
-                .ended(x[1])
-                .build();}).collect(Collectors.toList());
+        List<LetterInterval> expected = Arrays.stream(mergedArray)
+                .map(x -> new LetterInterval(x[0], x[1]))
+                .collect(Collectors.toList());
 
-        List<ArrayList<String>> listOfLists = Arrays.stream(array).map(x -> {
-                    return new ArrayList<>(Arrays.asList(x[0], x[1]));
-                }
-        ).collect(Collectors.toList());
+        List<ArrayList<String>> listOfLists = Arrays.stream(array)
+                .map(x -> new ArrayList<>(Arrays.asList(x[0], x[1])))
+                .collect(Collectors.toList());
 
         var Actual = service.mergeIntervals(listOfLists, "letters");
         testArray(expected, Actual);

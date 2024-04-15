@@ -1,8 +1,7 @@
 package com.intervals.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /*
@@ -10,9 +9,11 @@ import lombok.experimental.SuperBuilder;
 В классах насследниках определен тип объектов для сравнения(либо Integer либо String)
 Также в классах насследниках настроен компоратор для более удобной сортировки
  */
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
 @MappedSuperclass
-@SuperBuilder
+//конструктор без аргументов для Jpa
 @NoArgsConstructor
 public abstract class Interval<T> implements Comparable<Interval<T>>, Merge<T> {
     @Id
@@ -23,12 +24,15 @@ public abstract class Interval<T> implements Comparable<Interval<T>>, Merge<T> {
     @Column(name = "ended")
     T ended;
 
+    public Interval(T start, T end){
+        setStart(start);
+        setEnded(end);
+    }
     @Override
     public abstract int compareTo(Interval<T> object);
 
     @Override
     public abstract boolean mergeWith(Interval<T> value);
     //    public abstract int canMerge(Interval<T> object);
-
 
 }

@@ -20,7 +20,9 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
+@SpringBootTest
 class ServiceMergeTest {
+    @Autowired
     @InjectMocks
     private IntervalsService service;
     @Mock
@@ -33,9 +35,7 @@ class ServiceMergeTest {
                 service.mergeIntervals(new ArrayList<ArrayList<Interval<Integer>>>(){
                     {
                         add(new ArrayList<Interval<Integer>>(){{
-                                DigitsInterval.builder()
-                                .start(1).ended(10).
-                                        build();
+                                add(new DigitsInterval(1, 10));
                             }}
                         );
                     }

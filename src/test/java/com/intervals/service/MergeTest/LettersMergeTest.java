@@ -30,6 +30,8 @@ class LettersMergeTest {
     @InjectMocks
     private IntervalsService service;
     @Mock
+    private IRepository repositoryService;
+    @Mock
     private LetterRepository letterRepository;
 
     void testArray(List<?> t, List<?> k){
@@ -38,10 +40,8 @@ class LettersMergeTest {
         });
     }
     private void testLetters(String[][] array, String[][] mergedArray){
-        List<LetterInterval> expected = Arrays.stream(mergedArray).map(x -> {return LetterInterval.builder()
-                .start(x[0])
-                .ended(x[1])
-                .build();}).collect(Collectors.toList());
+        List<LetterInterval> expected = Arrays.stream(mergedArray).map(x ->
+            new LetterInterval(x[0], x[1])).collect(Collectors.toList());
 
         List<ArrayList<String>> listOfLists = Arrays.stream(array).map(x -> {
                     return new ArrayList<>(Arrays.asList(x[0], x[1]));
@@ -86,5 +86,26 @@ class LettersMergeTest {
         expected = new String[][]{{"p", "V"}, {"w", "Z"}};
         testLetters(intervals, expected);
     }
+    /*
+        a < e
+     */
+//    @Test
+//    void NoIntervals_Test7() {
+//        String[][] intervals = {{"a", "d"}};
+//        String[][] expected = {{"a", "d"}};
+//        testLetters(intervals, expected);
+//        intervals = new String[][]{{"c", "f"}};
+//        expected = new String[][]{{"c", "f"}};
+//        testLetters(intervals, expected);
+//    }
+//    @Test
+//    void NoIntervals_Test8() {
+//        String[][] intervals = {{"a", "z"}};
+//        String[][] expected = {{"a", "z"}};
+//        testLetters(intervals, expected);
+//        intervals = new String[][]{{"o", "s"}};
+//        expected = new String[][]{{"q", "m"}};
+//        testLetters(intervals, expected);
+//    }
 
 }

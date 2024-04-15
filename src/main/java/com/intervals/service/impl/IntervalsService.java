@@ -7,6 +7,7 @@ import com.intervals.entities.IntervalRelease.LetterInterval;
 import com.intervals.exception.service.ServiceExceptionFabric;
 import com.intervals.repository.DigitRepository;
 import com.intervals.repository.LetterRepository;
+import com.intervals.service.IRepository;
 import com.intervals.service.IService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,29 +19,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class IntervalsService implements IService {
-    private final DigitRepository intervalseRepository;
-    private final LetterRepository stringRepository;
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public List<?> get(String kind) {
-        if ("digits".equals(kind)) {
-            return FactoryDTO.createGet(intervalseRepository.getMinInterval());
-        } else if ("letters".equals(kind)) {
-            return FactoryDTO.createGet(stringRepository.getMinInterval());
-        }
-        return null;
-    }
-
-    @Override
-    public <T> void save(Interval<T> i) {
-        if (i instanceof DigitsInterval) {
-            intervalseRepository.save((DigitsInterval) i);
-        } else if (i instanceof LetterInterval) {
-            stringRepository.save((LetterInterval) i);
-        }
-    }
-
+    private final IntervalRepositoryService repoService;
     @SuppressWarnings("unchecked")
     private  <T extends Interval<E>, E> ArrayList<T> merge(ArrayList<T> arrayInterval) {
         //Сортируем для упрощения алгоритма
@@ -66,15 +45,9 @@ public class IntervalsService implements IService {
     private <T> Interval<T> createInterval(T start, T end, String name) throws Exception {
         switch (name){
             case ("digits"):
-                return (Interval<T>) DigitsInterval.builder()
-                        .start((Integer) start)
-                        .ended((Integer) end)
-                        .build();
+                return (Interval<T>) new DigitsInterval((Integer) start, (Integer) end);
             case("letters"):
-                return (Interval<T>) LetterInterval.builder()
-                        .start((String) start)
-                        .ended((String) end)
-                        .build();
+                return (Interval<T>) new LetterInterval((String) start, (String) end);
             default:
                 throw ServiceExceptionFabric.illegalTypeException(name);
         }
@@ -88,10 +61,10 @@ public class IntervalsService implements IService {
         //Сохранение в массив интервалов для последующей обработки
         input.stream().forEach(i->{
                 try {
-                    arrayInterval.add(
-                            (E) createInterval(i.get(0), i.get(1), name)
+                    arrayInterval.add((E) createInterval(i.get(0), i.get(1), name)
                     );
-                } catch (Exception e) {
+                }
+                catch (Exception e) {
                     throw new IllegalArgumentException(e.getMessage());
                 }
                 }
@@ -101,7 +74,7 @@ public class IntervalsService implements IService {
         ArrayList<E> merge = merge(arrayInterval);
         //Сохранение в бд, смердженных списков
         for (Interval<T> i : merge) {
-            save(i);
+            repoService.save(i);
         }
         return merge;
     }

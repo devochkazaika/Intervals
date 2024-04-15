@@ -12,11 +12,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.Mockito.when;
 
@@ -25,23 +25,19 @@ public class ServiceWorkWithRepository {
     @InjectMocks
     private IntervalsService service;
     @Mock
-    private DigitRepository digitRepository;
-    @Mock
-    private LetterRepository letterRepository;
+    private IRepository repositoryService;
     @Test
     void getMinDigits() throws Exception {
-        when(digitRepository.getMinInterval()).thenReturn(DigitsInterval.builder()
-                .start(1).ended(6)
-                .build());
+        when(repositoryService.get("digits")).thenReturn(new ArrayList<>(
+                Arrays.asList(1, 6)
+        ));
         List<Integer> expected = new ArrayList<>(Arrays.asList(1, 6));
-        Assertions.assertEquals(service.get("digits"), expected);
+        Assertions.assertEquals(repositoryService.get("digits"), expected);
     }
     @Test
     void getMinLetters() throws Exception {
-        Mockito.when(letterRepository.getMinInterval()).thenReturn(LetterInterval.builder()
-                .start("a").ended("c")
-                .build());
+        Mockito.when(repositoryService.get("letters")).thenReturn(new ArrayList<>(Arrays.asList("a", "c")));
         List<String> expected = new ArrayList<>(Arrays.asList("a", "c"));
-        Assertions.assertEquals(service.get("letters"), expected);
+        Assertions.assertEquals(repositoryService.get("letters"), expected);
     }
 }

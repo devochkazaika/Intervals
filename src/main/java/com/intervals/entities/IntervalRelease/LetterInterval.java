@@ -1,7 +1,10 @@
 package com.intervals.entities.IntervalRelease;
 
 import com.intervals.entities.Interval;
+import com.intervals.exception.service.ServiceExceptionFabric;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
@@ -10,9 +13,11 @@ import java.util.HashMap;
 
 @Entity
 @Table(name = "letters")
-@SuperBuilder
 @NoArgsConstructor
 public class LetterInterval extends Interval<String> {
+    public LetterInterval(String start, String ended) throws IllegalArgumentException {
+        super(start, ended);
+    }
     //Словарь для обозначения элементов и какая у них значимость, регистр не имеет значения
     //Словарь содержит только буквы(без каких-либо знаков), как и сказано в задании
     private static HashMap<String, Integer> mapLetters = new HashMap<>(){{
@@ -28,6 +33,21 @@ public class LetterInterval extends Interval<String> {
             i++;
         }
     }};
+
+    @Override
+    public void setStart(String start) throws IllegalArgumentException {
+        if (!mapLetters.containsKey(start)){
+            throw ServiceExceptionFabric.illegalLetterException(start);
+        }
+        super.setStart(start);
+    }
+    @Override
+    public void setEnded(String end) throws IllegalArgumentException {
+        if (!mapLetters.containsKey(end)){
+            throw ServiceExceptionFabric.illegalLetterException(end);
+        }
+        super.setEnded(end);
+    }
 
     @Override
     public boolean mergeWith(Interval<String> value) {
@@ -52,4 +72,5 @@ public class LetterInterval extends Interval<String> {
             return -1;
         }
     }
+
 }

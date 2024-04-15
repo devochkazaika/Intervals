@@ -10,14 +10,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 public class LetterIntervalTest {
     @Test
     public void test1(){
-        LetterInterval t1 = LetterInterval.builder()
-                .start("a")
-                .ended("f")
-                .build();
-        LetterInterval t2 = LetterInterval.builder()
-                .start("d")
-                .ended("j")
-                .build();
+        LetterInterval t1 = new LetterInterval("a", "f");
+        LetterInterval t2 = new LetterInterval("d", "j");
         Assertions.assertEquals(-1, t1.compareTo(t2));
     }
 }
