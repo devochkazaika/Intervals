@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.intervals.service.LettersMergeTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2024-04-15T07:29:07" hostname="DESKTOP-0UV5HBS" time="2.867">
+  <properties/>
+  <testcase name="mergeLetterIntervals_Test2()" classname="com.intervals.service.LettersMergeTest" time="2.823"/>
+  <testcase name="mergeLetterIntervals_Test3()" classname="com.intervals.service.LettersMergeTest" time="0.006"/>
+  <testcase name="mergeLetterIntervals_Test4()" classname="com.intervals.service.LettersMergeTest" time="0.006"/>
+  <testcase name="mergeLetterIntervals_Test5()" classname="com.intervals.service.LettersMergeTest" time="0.012"/>
+  <testcase name="merge_letters_Test()" classname="com.intervals.service.LettersMergeTest" time="0.007"/>
+  <system-out><![CDATA[[Interval(id=null, start=B, ended=g), Interval(id=null, start=h, ended=k)]
+[Interval(id=null, start=C, ended=l), Interval(id=null, start=m, ended=Q)]
+[Interval(id=null, start=a, ended=h)]
+[Interval(id=null, start=p, ended=v), Interval(id=null, start=w, ended=z)]
+[Interval(id=null, start=p, ended=V), Interval(id=null, start=w, ended=Z)]
+[Interval(id=null, start=a, ended=j), Interval(id=null, start=r, ended=z)]
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -28,20 +28,24 @@ public class LetterInterval extends Interval<String> {
             i++;
         }
     }};
+
+    @Override
+    public boolean mergeWith(Interval<String> value) {
+        if (mapLetters.get(getStart()) <= mapLetters.get(value.getStart())){
+            if (mapLetters.get(getEnded()) >= mapLetters.get(value.getStart()) &&
+                    mapLetters.get(getEnded()) <= mapLetters.get(value.getEnded())){
+                        this.setEnded(value.getEnded());
+                        return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public int compareTo(Interval<String> object) {
         Integer first = mapLetters.get(this.getStart());
         Integer second = mapLetters.get(object.getStart());
         if (first > second){
-            return 1;
-        }
-        else{
-            return -1;
-        }
-    }
-    @Override
-    public int canMerge(Interval<String> object){
-        if (this.getEnded().charAt(0) >= object.getStart().charAt(0)){
             return 1;
         }
         else{

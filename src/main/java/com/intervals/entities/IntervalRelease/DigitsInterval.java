@@ -10,6 +10,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 public class DigitsInterval extends Interval<Integer>{
+
     @Override
     public int compareTo(Interval<Integer> object) {
         if (this.getStart() > object.getStart()){
@@ -19,13 +20,32 @@ public class DigitsInterval extends Interval<Integer>{
             return -1;
         }
     }
+
     @Override
-    public int canMerge(Interval<Integer> object) {
-        if (this.getEnded() >= object.getStart()){
-            return 1;
+    public boolean mergeWith(Interval<Integer> value) {
+        if (getStart() <= value.getStart()){
+            if (getEnded() >= value.getStart() && getEnded() <= value.getEnded()){
+                setEnded(value.getEnded());
+                return true;
+            }
         }
-        else{
-            return -1;
-        }
+        return false;
     }
+
+    @Override
+    public void setEnded(Integer value){
+        if (getEnded() < value){
+            super.setEnded(value);
+        }
+        super.setEnded(value);
+    }
+//    @Override
+//    public int canMerge(Interval<Integer> object) {
+//        if (this.getEnded() >= object.getStart()){
+//            return 1;
+//        }
+//        else{
+//            return -1;
+//        }
+//    }
 }

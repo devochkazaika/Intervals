@@ -14,7 +14,7 @@ import lombok.experimental.SuperBuilder;
 @MappedSuperclass
 @SuperBuilder
 @NoArgsConstructor
-public abstract class Interval<T> implements Comparable<Interval<T>> {
+public abstract class Interval<T> implements Comparable<Interval<T>>, Merge<T> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -25,7 +25,10 @@ public abstract class Interval<T> implements Comparable<Interval<T>> {
 
     @Override
     public abstract int compareTo(Interval<T> object);
-    public abstract int canMerge(Interval<T> object);
+
+    @Override
+    public abstract boolean mergeWith(Interval<T> value);
+    //    public abstract int canMerge(Interval<T> object);
 
 
 }

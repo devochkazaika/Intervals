@@ -4,6 +4,7 @@ import com.intervals.controller.IntervalsDTO.FactoryDTO;
 import com.intervals.entities.Interval;
 import com.intervals.entities.IntervalRelease.DigitsInterval;
 import com.intervals.entities.IntervalRelease.LetterInterval;
+import com.intervals.exception.service.ServiceExceptionFabric;
 import com.intervals.repository.DigitRepository;
 import com.intervals.repository.LetterRepository;
 import com.intervals.service.IService;
@@ -40,50 +41,68 @@ public class IntervalsService implements IService {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private  <T extends Interval<E>, E> ArrayList<T> merge(ArrayList<T> arrayInterval) {
+        //Сортируем для упрощения алгоритма
         Collections.sort(arrayInterval);
 
         ArrayList<T> answer = new ArrayList<>();
         answer.add(arrayInterval.get(0));
-        //Для прохода по списку запоминаем последний в списке(то есть first)
+        //Для прохода по списку запоминаем предыдущий в списке(то есть prevElem)
+        Interval<E> prevElem = answer.get(0);
         //И элемент с которым сравниваем(то есть second)
-        Interval<E> first = answer.get(0);
-        Interval<E> second;
+        Interval<E> elem;
         for (int i = 1; i < arrayInterval.size(); i++) {
-            second = arrayInterval.get(i);
-            if (first.canMerge(second) == 1) {
-                first.setEnded(second.getEnded());
-            } else {
+            elem = arrayInterval.get(i);
+            if(!prevElem.mergeWith(elem)){
                 //Меняем местами, так как след интервал уже не пересекается
-                first = second;
                 answer.add(arrayInterval.get(i));
+                prevElem = elem;
             }
         }
         return answer;
     }
+    @SuppressWarnings("unchecked")
+    private <T> Interval<T> createInterval(T start, T end, String name) throws Exception {
+        switch (name){
+            case ("digits"):
+                return (Interval<T>) DigitsInterval.builder()
+                        .start((Integer) start)
+                        .ended((Integer) end)
+                        .build();
+            case("letters"):
+                return (Interval<T>) LetterInterval.builder()
+                        .start((String) start)
+                        .ended((String) end)
+                        .build();
+            default:
+                throw ServiceExceptionFabric.illegalTypeException(name);
+        }
+    }
 
     @SuppressWarnings("unchecked")
-    public <T, E extends Interval<T>> List<E> mergeIntervals(List<ArrayList<T>> input, String name) {
+    public <T, E extends Interval<T>> List<E> mergeIntervals(List<ArrayList<T>> input, String name)
+    throws IllegalArgumentException{
+
         ArrayList<E> arrayInterval = new ArrayList<>();
-        if (name.equals("digits")) {
-            for (ArrayList<T> i : input) {
-                arrayInterval.add((E) DigitsInterval.builder()
-                        .start((Integer) i.get(0))
-                        .ended((Integer) i.get(1))
-                        .build());
-            }
-        } else if (name.equals("letters")) {
-            for (ArrayList<T> i : input) {
-                arrayInterval.add((E) LetterInterval.builder()
-                        .start((String) i.get(0))
-                        .ended((String) i.get(1))
-                        .build());
-            }
-        }
+        //Сохранение в массив интервалов для последующей обработки
+        input.stream().forEach(i->{
+                try {
+                    arrayInterval.add(
+                            (E) createInterval(i.get(0), i.get(1), name)
+                    );
+                } catch (Exception e) {
+                    throw new IllegalArgumentException(e.getMessage());
+                }
+                }
+        );
+
+        //мердж интервалов
+        ArrayList<E> merge = merge(arrayInterval);
         //Сохранение в бд, смердженных списков
-        for (Interval<T> i : merge(arrayInterval)) {
+        for (Interval<T> i : merge) {
             save(i);
         }
-        return merge(arrayInterval);
+        return merge;
     }
 }
