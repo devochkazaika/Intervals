@@ -13,6 +13,7 @@ import lombok.experimental.SuperBuilder;
 //конструктор без аргументов для Jpa
 @NoArgsConstructor
 public class DigitsInterval extends Interval<Integer>{
+
     public DigitsInterval(Integer st, Integer en) throws IllegalArgumentException {
         super(st, en);
     }

@@ -2,7 +2,6 @@ package com.intervals.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 /*
 Абстрактный класс для интервалов
@@ -15,7 +14,7 @@ import lombok.experimental.SuperBuilder;
 @MappedSuperclass
 //конструктор без аргументов для Jpa
 @NoArgsConstructor
-public abstract class Interval<T> implements Comparable<Interval<T>>, Merge<T> {
+public abstract class Interval<T> implements Comparable<Interval<T>>, MergeAble<T> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -33,6 +32,9 @@ public abstract class Interval<T> implements Comparable<Interval<T>>, Merge<T> {
 
     @Override
     public abstract boolean mergeWith(Interval<T> value);
-    //    public abstract int canMerge(Interval<T> object);
 
+    @Override
+    public String toString() {
+        return "{start = ".concat(start.toString()) + ", ended = ".concat(ended.toString()) + "}";
+    }
 }

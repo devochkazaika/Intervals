@@ -39,14 +39,19 @@ public class LetterInterval extends Interval<String> {
         if (!mapLetters.containsKey(start)){
             throw ServiceExceptionFabric.illegalLetterException(start);
         }
-        super.setStart(start);
+        else{
+            super.setStart(start);
+        }
     }
     @Override
     public void setEnded(String end) throws IllegalArgumentException {
         if (!mapLetters.containsKey(end)){
             throw ServiceExceptionFabric.illegalLetterException(end);
         }
-        super.setEnded(end);
+        else{
+            if (mapLetters.get(getStart()) > mapLetters.get(end)) throw ServiceExceptionFabric.illegalLetterException(end);
+            super.setEnded(end);
+        }
     }
 
     @Override

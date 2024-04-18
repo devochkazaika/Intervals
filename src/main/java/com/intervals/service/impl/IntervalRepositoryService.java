@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@Component
+@Service
 @AllArgsConstructor
 public class IntervalRepositoryService implements IRepository {
     private final DigitRepository intervalseRepository;
