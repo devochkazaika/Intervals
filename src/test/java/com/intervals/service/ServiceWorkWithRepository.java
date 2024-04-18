@@ -29,9 +29,9 @@ public class ServiceWorkWithRepository {
     @Test
     void getMinDigits() throws Exception {
         when(repositoryService.get("digits")).thenReturn(new ArrayList<>(
-                Arrays.asList(1, 6)
+                Arrays.asList(1L, 6L)
         ));
-        List<Integer> expected = new ArrayList<>(Arrays.asList(1, 6));
+        List<Long> expected = new ArrayList<>(Arrays.asList(1L, 6L));
         Assertions.assertEquals(repositoryService.get("digits"), expected);
     }
     @Test

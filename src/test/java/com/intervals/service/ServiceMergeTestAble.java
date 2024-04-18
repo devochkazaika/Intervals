@@ -14,9 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -33,10 +31,10 @@ class ServiceMergeTestAble {
     @Test()
     public void exception_test1(){
         assertThrows(IllegalArgumentException.class, ()->
-                service.mergeIntervals(new ArrayList<ArrayList<Integer>>(){
+                service.mergeIntervals(new ArrayList<ArrayList<Long>>(){
                     {
-                        add(new ArrayList<Integer>(){{
-                                add(1);add(1);
+                        add(new ArrayList<Long>(){{
+                                add(1L);add(1L);
                             }}
                         );
                     }

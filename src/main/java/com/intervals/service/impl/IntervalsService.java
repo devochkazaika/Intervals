@@ -28,7 +28,7 @@ public class IntervalsService implements IService {
         T start = input.get(0);
         T end = input.get(1);
         return switch (name) {
-            case ("digits") -> (Interval<T>) new DigitsInterval((Integer) start, (Integer) end);
+            case ("digits") -> (Interval<T>) new DigitsInterval((Long) start, (Long) end);
             case ("letters") -> (Interval<T>) new LetterInterval((String) start, (String) end);
             default -> throw ServiceExceptionFabric.illegalTypeException(name);
         };

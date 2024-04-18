@@ -1,20 +1,18 @@
-package com.intervals.service;
+package com.intervals.service.MergeTest;
 
 import com.intervals.entities.IntervalRelease.DigitsInterval;
 import com.intervals.entities.IntervalRelease.LetterInterval;
 import com.intervals.repository.DigitRepository;
 import com.intervals.repository.LetterRepository;
+import com.intervals.service.IRepository;
 import com.intervals.service.impl.IntervalsService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,8 +20,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class DigitsMergeTestAble {
@@ -51,8 +47,9 @@ class DigitsMergeTestAble {
         List<DigitsInterval> expected = Arrays.stream(mergedArray).map(
                 x -> new DigitsInterval(x[0], x[1])
                 ).collect(Collectors.toList());
-        List<ArrayList<Integer>> listOfLists = Arrays.stream(array).map(
-                x -> new ArrayList<>(Arrays.asList(x[0], x[1]))
+        List<ArrayList<Long>> listOfLists = Arrays.stream(array).map(
+                x -> new ArrayList<>(Arrays.asList(Long.valueOf(x[0]),
+                        Long.valueOf(x[1])))
                 ).collect(Collectors.toList());
 
         var Actual = service.mergeIntervals(listOfLists, "digits");

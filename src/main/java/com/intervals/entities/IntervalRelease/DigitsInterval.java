@@ -12,14 +12,17 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "digits")
 //конструктор без аргументов для Jpa
 @NoArgsConstructor
-public class DigitsInterval extends Interval<Integer>{
+public class DigitsInterval extends Interval<Long>{
 
-    public DigitsInterval(Integer st, Integer en) throws IllegalArgumentException {
+    public DigitsInterval(Long st, Long en) throws IllegalArgumentException {
         super(st, en);
+    }
+    public DigitsInterval(Integer st, Integer en) throws IllegalArgumentException{
+        super(st.longValue(), en.longValue());
     }
 
     @Override
-    public int compareTo(Interval<Integer> object) {
+    public int compareTo(Interval<Long> object) {
         if (this.getStart() > object.getStart()){
             return 1;
         }
@@ -29,7 +32,7 @@ public class DigitsInterval extends Interval<Integer>{
     }
 
     @Override
-    public boolean mergeWith(Interval<Integer> value) {
+    public boolean mergeWith(Interval<Long> value) {
         if (getStart() <= value.getStart()){
             if (getEnded() >= value.getStart() && getEnded() <= value.getEnded()){
                 setEnded(value.getEnded());
@@ -40,14 +43,14 @@ public class DigitsInterval extends Interval<Integer>{
     }
 
     @Override
-    public void setEnded(Integer value){
+    public void setEnded(Long value){
         if (getStart() > value) throw new IllegalArgumentException();
         else{
             super.setEnded(value);
         }
     }
     @Override
-    public void setStart(Integer value){
+    public void setStart(Long value){
         super.setStart(value);
     }
 }

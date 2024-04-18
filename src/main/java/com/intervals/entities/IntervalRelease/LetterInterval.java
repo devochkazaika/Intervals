@@ -68,8 +68,8 @@ public class LetterInterval extends Interval<String> {
 
     @Override
     public int compareTo(Interval<String> object) {
-        Integer first = mapLetters.get(this.getStart());
-        Integer second = mapLetters.get(object.getStart());
+        int first = mapLetters.get(this.getStart());
+        int second = mapLetters.get(object.getStart());
         if (first > second){
             return 1;
         }
