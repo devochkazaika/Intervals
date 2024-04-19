@@ -2,11 +2,9 @@ package com.intervals.entities.IntervalRelease;
 
 import com.intervals.entities.Interval;
 import com.intervals.exception.service.ServiceExceptionFabric;
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 import java.util.HashMap;
 
@@ -14,20 +12,34 @@ import java.util.HashMap;
 @Entity
 @Table(name = "letters")
 @NoArgsConstructor
+/**
+ * Класс для представления интервала строк.
+ */
 public class LetterInterval extends Interval<String> {
+
+    /**
+     * Создает интервал строк.
+     *
+     * @param start начальное значение интервала
+     * @param ended конечное значение интервала
+     * @throws IllegalArgumentException если значения не являются строками
+     */
     public LetterInterval(String start, String ended) throws IllegalArgumentException {
         super(start, ended);
     }
-    //Словарь для обозначения элементов и какая у них значимость, регистр не имеет значения
-    //Словарь содержит только буквы(без каких-либо знаков), как и сказано в задании
+
+    /**
+     * Словарь для обозначения элементов и их значимости.
+     * Регистр не имеет значения. Словарь содержит только буквы (без знаков).
+     */
     private static HashMap<String, Integer> mapLetters = new HashMap<>(){{
         char t = 'a';
         int i = 0;
         int step = 'A' - 'a';
-        while (t != 'z'+1){
-            //Добавление МАЛЕНЬКОЙ буквы
+        while (t != 'z' + 1) {
+            // Добавление маленькой буквы
             put(Character.toString(t), i);
-            //Добавление БОЛЬШОЙ буквы с тем же i, что и у маленькой
+            // Добавление большой буквы с тем же значением, что и у маленькой
             put(Character.toString(t + step), i);
             t++;
             i++;

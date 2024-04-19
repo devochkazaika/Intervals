@@ -2,17 +2,15 @@ package com.intervals.service.impl;
 
 import com.intervals.controller.IntervalsDTO.FactoryDTO;
 import com.intervals.entities.Interval;
-import com.intervals.entities.IntervalRelease.DigitsInterval;
+import com.intervals.entities.IntervalRelease.DigitInterval;
 import com.intervals.entities.IntervalRelease.LetterInterval;
 import com.intervals.repository.DigitRepository;
 import com.intervals.repository.LetterRepository;
 import com.intervals.service.IRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -32,8 +30,8 @@ public class IntervalRepositoryService implements IRepository {
 
     @Override
     public <T> void save(Interval<T> i) {
-        if (i instanceof DigitsInterval) {
-            intervalseRepository.save((DigitsInterval) i);
+        if (i instanceof DigitInterval) {
+            intervalseRepository.save((DigitInterval) i);
         } else if (i instanceof LetterInterval) {
             stringRepository.save((LetterInterval) i);
         }

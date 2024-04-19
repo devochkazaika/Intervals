@@ -1,9 +1,5 @@
 package com.intervals.service;
 
-import com.intervals.entities.IntervalRelease.DigitsInterval;
-import com.intervals.entities.IntervalRelease.LetterInterval;
-import com.intervals.repository.DigitRepository;
-import com.intervals.repository.LetterRepository;
 import com.intervals.service.impl.IntervalsService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,7 +12,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import static org.mockito.Mockito.when;
 

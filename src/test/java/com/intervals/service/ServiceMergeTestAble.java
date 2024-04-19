@@ -1,11 +1,8 @@
 package com.intervals.service;
 
-import com.intervals.entities.Interval;
-import com.intervals.entities.IntervalRelease.DigitsInterval;
 import com.intervals.repository.DigitRepository;
 import com.intervals.repository.LetterRepository;
 import com.intervals.service.impl.IntervalsService;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

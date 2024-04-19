@@ -1,6 +1,6 @@
 package com.intervals.service.MergeTest;
 
-import com.intervals.entities.IntervalRelease.DigitsInterval;
+import com.intervals.entities.IntervalRelease.DigitInterval;
 import com.intervals.entities.IntervalRelease.LetterInterval;
 import com.intervals.repository.DigitRepository;
 import com.intervals.repository.LetterRepository;
@@ -35,17 +35,17 @@ class DigitsMergeTestAble {
     @Test
     @Rollback(value = true)
     void saveTest() throws Exception {
-        ArrayList<DigitsInterval> testDB = new ArrayList<>(
-                Arrays.asList(  new DigitsInterval(10, 15),
-                                new DigitsInterval(14, 17),
-                                new DigitsInterval(124, 1235)));
+        ArrayList<DigitInterval> testDB = new ArrayList<>(
+                Arrays.asList(  new DigitInterval(10, 15),
+                                new DigitInterval(14, 17),
+                                new DigitInterval(124, 1235)));
         testDB.forEach(x -> {
             repositoryService.save(x);
         });
     }
     private void testDigits(int[][] array, int[][] mergedArray){
-        List<DigitsInterval> expected = Arrays.stream(mergedArray).map(
-                x -> new DigitsInterval(x[0], x[1])
+        List<DigitInterval> expected = Arrays.stream(mergedArray).map(
+                x -> new DigitInterval(x[0], x[1])
                 ).collect(Collectors.toList());
         List<ArrayList<Long>> listOfLists = Arrays.stream(array).map(
                 x -> new ArrayList<>(Arrays.asList(Long.valueOf(x[0]),
