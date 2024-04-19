@@ -33,7 +33,7 @@ public class IntervalsService implements IService {
      */
     @SuppressWarnings("unchecked")
     private <T> Interval<T> createInterval(List<T> input, String name) throws IllegalTypeException {
-        if (input.size() > 2) throw ServiceExceptionFabric.illegalTypeException(name);
+        if (input.size() != 2) throw ServiceExceptionFabric.illegalSize();
         T start = input.get(0);
         T end = input.get(1);
         return switch (name) {
@@ -52,7 +52,8 @@ public class IntervalsService implements IService {
      * @return список объединенных интервалов
      */
     @SuppressWarnings("unchecked")
-    private <T extends Interval<E>, E> ArrayList<T> merge(ArrayList<T> arrayInterval) {
+    private <T extends Interval<E>, E> ArrayList<T> merge(ArrayList<T> arrayInterval) throws IllegalArgumentException {
+        if (arrayInterval.isEmpty()) throw ServiceExceptionFabric.illegalSize();
         // Сортировка для упрощения алгоритма
         Collections.sort(arrayInterval);
 
@@ -104,7 +105,7 @@ public class IntervalsService implements IService {
                 throw new IllegalArgumentException(e.getMessage());
             } catch (Exception e) {
                 // Если произошла другая ошибка, выбрасываем IllegalArgumentException с сообщением, созданным через ServiceExceptionFabric
-                throw ServiceExceptionFabric.illegalArgumentException(i.get(0), i.get(1));
+                throw e;
             }
         });
 

@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS digits (
     id SERIAL PRIMARY KEY,
-    start Int,
-    ended Int
+    start BIGINT,
+    ended BIGINT
 );
 
 CREATE TABLE IF NOT EXISTS letters (

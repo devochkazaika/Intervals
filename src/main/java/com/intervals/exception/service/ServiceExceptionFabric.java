@@ -1,6 +1,5 @@
 package com.intervals.exception.service;
 
-import com.intervals.entities.Interval;
 import com.intervals.exception.service.types.IllegalTypeException;
 
 /**
@@ -28,14 +27,9 @@ public class ServiceExceptionFabric {
         return new IllegalArgumentException("illegal letter in " + value);
     }
 
-    /**
-     * Создает исключение IllegalArgumentException для недопустимого интервала.
-     *
-     * @param value интервал, вызывающий исключение
-     * @return IllegalArgumentException с сообщением об ошибке
-     */
-    public static IllegalArgumentException illegalArgumentException(Interval<?> value) {
-        return new IllegalArgumentException("illegal interval = " + value.toString());
+
+    public static IllegalArgumentException illegalSize() {
+        return new IllegalArgumentException("illegal size interval");
     }
 
     /**
